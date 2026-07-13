@@ -25,9 +25,6 @@ env:
   RUSTDOCFLAGS: -Dwarnings
   RUSTFLAGS: -Dwarnings
   RUST_BACKTRACE: full
-  LIBC_CI_ZBUILD_STD: 1
-  TEST_UCLIBC_TIME64: 1
-  RUSTUP_TOOLCHAIN: nightly
 
 jobs:
   test:
@@ -39,8 +36,6 @@ jobs:
           - target: armv7-unknown-linux-uclibceabihf
     runs-on: ubuntu-26.04
     timeout-minutes: 25
-    env:
-      TARGET: ${{ matrix.target }}
     steps:
       # Check out this repository to `$GITHUB_WORKSPACE/downstream` for any needed files
       - uses: actions/checkout@v7
@@ -71,6 +66,10 @@ jobs:
 
       # Run tests using our patched dockerfile
       - name: Run in Docker
+        env:
+          TARGET: ${{ matrix.target }}
+          LIBC_CI_ZBUILD_STD: 1
+          TEST_UCLIBC_TIME64: 1
         run: cd rust-libc && ./ci/run-docker.sh ${{ matrix.target }}
 
       # Alternatively, if Docker is not needed, tests can be run in CI
