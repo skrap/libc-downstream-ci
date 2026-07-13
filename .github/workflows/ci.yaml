@@ -70,6 +70,7 @@ jobs:
           TARGET: ${{ matrix.target }}
           LIBC_CI_ZBUILD_STD: 1
           TEST_UCLIBC_TIME64: 1
+          INSTALL_RUST_SRC: 1
         run: cd rust-libc && ./ci/run-docker.sh ${{ matrix.target }}
 
       # Alternatively, if Docker is not needed, tests can be run in CI
