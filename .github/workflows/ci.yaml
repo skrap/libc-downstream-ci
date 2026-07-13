@@ -16,6 +16,7 @@ on:
         options:
           - main
           - libc-0.2
+          - bugfix/uclibc-docker-ci-build-fixes
 
 env:
   CARGO_TERM_COLOR: always
@@ -24,6 +25,9 @@ env:
   RUSTDOCFLAGS: -Dwarnings
   RUSTFLAGS: -Dwarnings
   RUST_BACKTRACE: full
+  LIBC_CI_ZBUILD_STD: 1
+  TEST_UCLIBC_TIME64: 1
+  RUSTUP_TOOLCHAIN: nightly
 
 jobs:
   test:
@@ -45,7 +49,7 @@ jobs:
       # Check out libc to `$GITHUB_WORKSPACE/rust-libc`
       - uses: actions/checkout@v7
         with:
-          repository: rust-lang/libc
+          repository: skrap/libc
           # A job for `libc-0.2` may also be worth adding, though this updates
           # significantly less frequently.
           ref: ${{ inputs.branch || 'main' }}
