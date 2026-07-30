@@ -71,6 +71,7 @@ jobs:
           TARGET: ${{ matrix.target }}
           LIBC_CI_ZBUILD_STD: 1
           TEST_UCLIBC_TIME64: 1
+          UCLIBC_TOOLCHAIN_URL: "https://github.com/skrap/libc-downstream-ci/releases/download/v0.1-toolchain/arm-buildroot-linux-uclibcgnueabihf_sdk-buildroot.tar.gz"
         run: cd rust-libc && ./ci/run-docker.sh ${{ matrix.target }}
 
       # Alternatively, if Docker is not needed, tests can be run in CI
