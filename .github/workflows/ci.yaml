@@ -8,6 +8,14 @@ on:
   # Allow starting this job manually for either libc branch
   workflow_dispatch:
     inputs:
+      repository:
+        description: libc repository to use
+        required: false
+        default: rust-lang/libc
+        type: choice
+        options:
+          - rust-lang/libc
+          - skrap/libc
       branch:
         description: libc branch to use
         required: true
@@ -45,7 +53,7 @@ jobs:
       # Check out libc to `$GITHUB_WORKSPACE/rust-libc`
       - uses: actions/checkout@v7
         with:
-          repository: skrap/libc
+          repository: ${{ inputs.repository }}
           # A job for `libc-0.2` may also be worth adding, though this updates
           # significantly less frequently.
           ref: ${{ inputs.branch || 'main' }}
