@@ -65,7 +65,9 @@ jobs:
           ls
           git config --global user.name "GHA Runner"
           git config --global user.email "none@github.com"
-          git -C rust-libc am "$(realpath downstream/patches/*)"
+          find downstream/patches -maxdepth 1 -name '*.patch' -print0 \
+            | sort -z \
+            | xargs -0 git -C rust-libc am
 
       - name: Setup Rust toolchain
         run: cd rust-libc && ./ci/install-rust.sh
