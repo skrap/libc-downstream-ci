@@ -53,7 +53,7 @@ jobs:
       # Check out libc to `$GITHUB_WORKSPACE/rust-libc`
       - uses: actions/checkout@v7
         with:
-          repository: ${{ inputs.repository }}
+          repository: ${{ inputs.repository || 'rust-lang/libc' }}
           # A job for `libc-0.2` may also be worth adding, though this updates
           # significantly less frequently.
           ref: ${{ inputs.branch || 'main' }}
